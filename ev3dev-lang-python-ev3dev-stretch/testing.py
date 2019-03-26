@@ -28,17 +28,23 @@ tank_drive.on_for_rotations(SpeedPercent(50), SpeedPercent(50), 10)
 #Greifer aufmachen
 m2 = MediumMotor(OUTPUT_D)
 m2.on_for_rotations(SpeedPercent(10),1)
+
 #Greifer zumachen
-m2 = MediumMotor(OUTPUT_D)
-m2.on_for_rotations(SpeedPercent(-10),1)
+#m2 = MediumMotor(OUTPUT_D)
+#m2.on_for_rotations(SpeedPercent(-10),1)
 
 #Greifer Heben
 m1 = LargeMotor(OUTPUT_C)
-m1.on_for_rotations(SpeedPercent(20), 1)
+#m1.on_for_rotations(SpeedPercent(20), 0.5, hold=true)
+m1.on_for_degrees(SpeedPercent(10),90)
+#m1.stop()
+#m1.STATE_HOLDING()
+#m1.is_holding()
+#m1.STOP_ACTION_HOLD()
 
 #Greifer aufmachen
-m2 = MediumMotor(OUTPUT_D)
-m2.on_for_rotations(SpeedPercent(10),1)
+#m2 = MediumMotor(OUTPUT_D)
+#m2.on_for_rotations(SpeedPercent(10),1)
 
 #Drehen rechts/links
 #m1 = LargeMotor(OUTPUT_A)
@@ -46,6 +52,8 @@ m2.on_for_rotations(SpeedPercent(10),1)
 
 #m2 = LargeMotor(OUTPUT_B)
 #m2.on_for_rotations(SpeedPercent(75), 20)
+
+print ('test')
 
 
 
