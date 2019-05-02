@@ -32,10 +32,11 @@ from time import sleep
  # tank_drive = MoveTank(OUTPUT_A,OUTPUT_B);
  # tank_drive.on_for_rotations(SpeedPercent(50), SpeedPercent(50), 10)
 
-#us = UltrasonicSensor(INPUT_4)
+us = UltrasonicSensor(INPUT_4)
 #print(us.distance_centimeters_ping)
-#while us.distance_centimeters_ping > 20:
- # tank_drive = MoveTank(OUTPUT_A,OUTPUT_B);
+while True:
+  print(us.distance_centimeters)
+  #tank_drive = MoveTank(OUTPUT_A,OUTPUT_B);
  # tank_drive.on_for_rotations(SpeedPercent(50), SpeedPercent(50), 10)
 
 #ausgaben der reflexionswerte

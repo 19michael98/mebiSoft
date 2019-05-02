@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-from CR_library import *
+from Alpha_Library import *
+
+print('Alpha_Push_Func')
 
 LA = LiftingArm();
 C = Clutch();
@@ -12,11 +14,4 @@ C.close()
 D.drive_until_color()
 C.open()
 D.back()
-Roboter.powerNap()
-
-
-
-
-
-
-
+#Roboter.powerNap()
