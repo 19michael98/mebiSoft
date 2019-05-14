@@ -5,12 +5,11 @@ from Alpha_Library import *
 LA = LiftingArm()
 C = Clutch()
 D = Drive()
-R = Roboter()
-cs.mode = 'REFLECT'
+
+cs.mode = 'COL-COLOR'
 while True:
   print('cs: ',cs.value())
   sleep(0.5)
-  #Roboter.powerNap()
 
 
 

@@ -8,10 +8,12 @@ D = Drive()
 R = Roboter()
 ls.mode = 'REFLECT'
 cs.mode = 'COL-REFLECT'
+#ins.mode = MODE_IR_PROX
 while True:
   #D.fast()
-  print('ls: ',ls.reflected_light_intensity) #unter 30
-  print('cs: ',cs.value())  #unter 26
+  print('inS: ',ins.proximity)
+  #print('inS: ',ins.distance())
+  #print('inS: ',ins.heading())
   sleep(1)
 
 

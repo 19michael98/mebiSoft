@@ -28,13 +28,6 @@ cs = ColorSensor(INPUT_4)
 #light detection
 ls = LightSensor(INPUT_2)
 
-class Roboter:
-  def __init__(self):
-    print('init roboter')
-  
-  def powerNap(self):
-    sleep(1.5)
-
 class LiftingArm:
   def __init__(self):
     print('Init LiftingArm')
@@ -43,7 +36,7 @@ class LiftingArm:
     m1.on_for_rotations(SpeedPercent(self.speed),5)
 
   def bring_down(self):
-    m1.on_for_rotations(SpeedPercent(-self.speed),5)
+    m1.on_for_rotations(SpeedPercent(-self.speed),6) #one more down than up....
 
   def bring_up(self):
     m1.on_for_rotations(SpeedPercent(self.speed),5)
@@ -95,11 +88,62 @@ class Drive:
   def turnRight(self):
     print('turn right')
     sp.on_for_rotations(-30, 10, 0.1,brake=False)
-                                
-  #def drive_until_found(self):
-  #  while us.distance_centimeters > 10:
-  #    self.fast()
-  #    print(us.distance_centimeters)
+
+ #################
+
+  def driveOnLineUntilRedStation(self):
+    ls.mode = 'REFLECT'
+    cs.mode = 'COL-REFLECT'
+    station = False
+    while not station:
+      tank_drive.on(10,10)
+
+      while ls.reflected_light_intensity > 30 and cs.value() > 26:
+        print('fahre')
+        cs.mode = 'COL-COLOR'
+        if cs.value() == 5:
+          print('station erkannt')
+          station = True
+          tank_drive.off()
+          break
+        cs.mode = 'COL-REFLECT'
+
+      tank_drive.off()
+      if not station:
+        if ls.reflected_light_intensity <= 30:
+          self.turnRight()
+        elif cs.value() <= 26:
+          self.turnLeft()
+
+ #################
+
+  def driveOnLineUntilGreenStation(self):
+    ls.mode = 'REFLECT'
+    cs.mode = 'COL-REFLECT'
+    station = False
+    while not station:
+      tank_drive.on(30,30)
+
+      while ls.reflected_light_intensity > 30 and cs.value() > 26:
+        print('fahre')
+        cs.mode = 'COL-COLOR'
+        print('cs:', cs.value())
+        sleep(0.01);
+        if cs.value() == 3:
+          print('station erkannt')
+          station = True
+          tank_drive.off()
+          break
+        cs.mode = 'COL-REFLECT'
+
+      tank_drive.off()
+      if not station:
+        if ls.reflected_light_intensity <= 30:
+          self.turnRight()
+        elif cs.value() <= 26:
+          self.turnLeft()
+
+  #################
 
   def drive_until_found(self):
     while ins.proximity >= 6:
@@ -108,7 +152,44 @@ class Drive:
       print(ins.proximity)
     tank_drive.off()
 
+  #################
+
   def drive_until_color(self):
     cs.mode = 'COL-COLOR'
     while cs.value() != 2:
       self.slow()
+
+  #################
+
+  def turn90degleft(self):
+    tank_drive.on_for_degrees(10,-10,110)
+
+  def turn90degright(self):
+    tank_drive.on_for_degrees(-10,10,110)
+
+  #################
+
+  def findObject(self,distance):
+    while ins.proximity >= distance:
+      tank_drive.on(15,15)
+      print('Distance: ',ins.proximity)
+    tank_drive.off()
+
+  #################
+
+  def findSurfaceColor(self,colorNr):
+    cs.mode = 'COL-COLOR'
+    while cs.value() != colorNr:
+      tank_drive.on(15,15)
+      print('SurfaceColor: ',cs.value())
+    tank_drive.off()
+
+  #################
+
+  def driveBackSec(self,seconds):
+    tank_drive.on(-10,-10)
+    sleep(seconds)
+    tank_drive.off()
+
+  #################
+  
