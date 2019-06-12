@@ -11,15 +11,29 @@ D = Drive()
 ls.mode = 'REFLECT'
 cs.mode = 'COL-COLOR'
 
+print('grad > ')
+grad = int(input())
+
+print('gesch > ')
+speed = int(input())
+
 while True:
-  tank_drive.on(30,30)
 
-  while ls.reflected_light_intensity > 45 and cs.value() != 5:
-    print('fahre')
+  while cs.value() != 5:
+    sp.on_for_rotations(-grad, speed, 0.1,brake=False)
 
-  tank_drive.off()
+  D.turnLeft()
 
-  if ls.reflected_light_intensity <= 46:
-    D.turnRight()
-  elif cs.value() == 5:
-    D.turnLeft()
+  sp.on_for_rotations(grad, speed, 0.1,brake=False)
+
+  tank_drive.on(speed,speed)
+
+  # while ls.reflected_light_intensity > 45 and cs.value() != 5:
+  #   print('fahre')
+
+  # tank_drive.off()
+
+  # if ls.reflected_light_intensity <= 46:
+  #   D.turnRight()
+  # elif cs.value() == 5:
+  #   D.turnLeft()

@@ -122,7 +122,7 @@ class Drive:
     cs.mode = 'COL-REFLECT'
     station = False
     while not station:
-      tank_drive.on(20,20)
+      tank_drive.on(15,15)
 
       while ls.reflected_light_intensity > 30 and cs.value() > 26:
         print('fahre')
@@ -139,21 +139,23 @@ class Drive:
       tank_drive.off()
       if not station:
 
-        #########
+        ######### einschub sonst wird gruener Untergrund nicht erkannt
         tank_drive.off()
         cs.mode = 'COL-COLOR'
         sleep(0.1);
         if cs.value() == 3:
+          print('check: ',cs.value())
           print('station erkannt')
           station = True
           tank_drive.off()
           break
         cs.mode = 'COL-REFLECT'
-        tank_drive.on()
+        tank_drive.on(15,15)
         ##########  
 
         if ls.reflected_light_intensity <= 30:
           self.turnRight()
+
         elif cs.value() <= 26:
           self.turnLeft()
 
@@ -168,9 +170,9 @@ class Drive:
 
   #################
 
-  def drive_until_color(self):
+  def drive_until_color(self,x):
     cs.mode = 'COL-COLOR'
-    while cs.value() != 2:
+    while cs.value() != x:
       self.slow()
 
   #################
